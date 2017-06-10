@@ -1,0 +1,17 @@
+description:
+  displayName: Rain Bow
+  category: Weapons
+  description: Rain down a volley of colorful arrows upon your foes.
+  usage: Fire an arrow as normal. Consume up to %d plain arrows. The fired arrow creates an arrow storm at its location after %.2f seconds.
+
+#The number of ticks before an arrow explodes into arrow rain
+IArrowTimer: 15
+#Max number of arrows consumed
+IMaxArrows: 16
+#The radius of the arrow rain
+IRadius: 4
+#The average number of arrows per block in arrow rain
+DArrowDensity: 1.5
+
+#The amount of damage each arrow should deal on hit
+DDamage: 10

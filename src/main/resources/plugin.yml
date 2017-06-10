@@ -1,0 +1,15 @@
+name: RainBow
+description: A bow that rains arrows
+author: RypoFalem
+version: 0.1
+main: io.github.rypofalem.rainbow.RainBowPlugin
+depend: [ Custom ]
+commands:
+  rainbow:
+    description: admin commands, just reload for now
+    usage: /<command> reload - reload config
+    permission: rainbow.admin
+permissions:
+  rainbow.admin:
+    description: use /rainbow command
+    default: OP
