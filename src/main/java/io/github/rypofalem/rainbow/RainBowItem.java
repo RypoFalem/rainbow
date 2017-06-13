@@ -4,6 +4,7 @@ import com.winthier.custom.CustomPlugin;
 import com.winthier.custom.item.CustomItem;
 import com.winthier.custom.item.ItemDescription;
 import com.winthier.custom.item.UpdatableItem;
+import lombok.NonNull;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -106,8 +107,8 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 		return item != null && item.getType() == Material.ARROW && !item.hasItemMeta();
 	}
 
+	@NonNull
 	public static String rainbowizeString(String input){
-		if(input == null) return null;
 		input = ChatColor.stripColor(input);
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i<input.length(); i++){
