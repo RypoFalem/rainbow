@@ -26,7 +26,7 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 	static double arrowDensity;
 	static int radius;
 
-	static final ChatColor[] rainbowColors = {ChatColor.RED, ChatColor.GOLD, ChatColor.GREEN,
+	static final ChatColor[] rainbowColors = {ChatColor.RED, ChatColor.GOLD, ChatColor.GREEN, ChatColor.AQUA,
 			ChatColor.BLUE, ChatColor.LIGHT_PURPLE};
 
 	RainBowItem(){
@@ -111,9 +111,13 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 	public static String rainbowizeString(String input){
 		input = ChatColor.stripColor(input);
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i<input.length(); i++){
-			sb.append(rainbowColors[i%rainbowColors.length]);
-			sb.append(input.charAt(i));
+		int colorCount = 0;
+		for(char character : input.toCharArray()){
+			if(character != ' '){
+				sb.append(rainbowColors[colorCount%rainbowColors.length]);
+				colorCount++;
+			}
+			sb.append(character);
 		}
 		sb.append(ChatColor.RESET);
 		return sb.toString();
