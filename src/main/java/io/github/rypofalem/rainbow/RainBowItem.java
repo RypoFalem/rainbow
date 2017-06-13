@@ -91,8 +91,11 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 			event.setCancelled(true);
 			return;
 		}
-		player.getWorld().playSound(player.getLocation(), Sound.BLOCK_NOTE_HARP, 1, RainBowPlugin.random.nextFloat() + .5f);
-		RainBowArrowBundleEntity.Watcher watcher = (RainBowArrowBundleEntity.Watcher) CustomPlugin.getInstance().getEntityManager()
+		player.getWorld().playSound(player.getLocation(),
+				Sound.BLOCK_NOTE_HARP, 1,
+				RainBowPlugin.random.nextFloat() + .5f);
+		RainBowArrowBundleEntity.Watcher watcher =
+				(RainBowArrowBundleEntity.Watcher) CustomPlugin.getInstance().getEntityManager()
 				.spawnEntity(arrow.getLocation(), RainBowArrowBundleEntity.ID);
 		Arrow arrowBundle = watcher.getEntity();
 		watcher.arrows =  (int) (ammo * Math.pow(radius*2+1, 2) * arrowDensity / maxArrow);
