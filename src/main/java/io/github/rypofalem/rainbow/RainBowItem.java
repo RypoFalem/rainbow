@@ -107,6 +107,7 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 	}
 
 	public static String rainbowizeString(String input){
+		if(input == null) return null;
 		input = ChatColor.stripColor(input);
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i<input.length(); i++){
