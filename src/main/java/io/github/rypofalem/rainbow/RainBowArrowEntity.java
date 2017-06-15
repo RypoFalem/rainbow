@@ -52,7 +52,7 @@ public class RainBowArrowEntity implements CustomEntity, TickableEntity, Listene
 	@Override
 	public void onTick(EntityWatcher entityWatcher) {
 		Location loc = entityWatcher.getEntity().getLocation();
-		float[] color = colors[ (loc.getBlockY()/6) % colors.length ];
+		float[] color = colors[ Math.abs((loc.getBlockY()/6)) % colors.length ];
 		loc.getWorld().spawnParticle(Particle.SPELL_MOB, loc, 0, color[0],color[1],color[2], 1);
 		if(entityWatcher.getEntity().isOnGround()) entityWatcher.getEntity().remove();
 	}
