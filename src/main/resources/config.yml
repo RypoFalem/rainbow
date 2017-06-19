@@ -2,7 +2,7 @@ description:
   displayName: Rain Bow
   category: Weapons
   description: Rain down a volley of colorful arrows upon your foes.
-  usage: Fire an arrow as normal. Consume up to %d plain arrows. The fired arrow creates an arrow storm at its location after %.2f seconds. 
+  usage: Fire an arrow as normal. Consume up to %d plain arrows. The fired arrow creates an arrow storm at its location after %.2f seconds. The bow needs %.2f seconds to cool down.
 
 #The number of ticks before an arrow explodes into arrow rain
 IArrowTimer: 15

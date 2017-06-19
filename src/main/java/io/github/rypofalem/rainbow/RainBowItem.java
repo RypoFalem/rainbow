@@ -30,7 +30,6 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 	static double arrowDensity;
 	static int radius;
 	static double cooldown;
-	static final int VERSION = 1;
 
 	static final ChatColor[] rainbowColors = {ChatColor.RED, ChatColor.GOLD, ChatColor.GREEN, ChatColor.AQUA,
 			ChatColor.BLUE, ChatColor.LIGHT_PURPLE};
@@ -52,15 +51,11 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 		description.setDisplayName(rainbowizeString(config.getString("description.displayName")));
 		description.setCategory(config.getString("description.category"));
 		description.setDescription(config.getString("description.description"));
-		description.setUsage(String.format(config.getString("description.usage"), maxArrow, explodeTicks/20f));
+		description.setUsage(String.format(config.getString("description.usage"), maxArrow, explodeTicks/20f, cooldown));
 	}
 
 	@Override
 	public void updateItem(ItemStack itemStack){
-		Dirty.TagWrapper itemConfig = Dirty.TagWrapper.getItemConfigOf(itemStack);
-		int version = itemConfig.getInt("version");
-		if(version == VERSION) return;
-		itemConfig.setInt("version", VERSION);
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.addEnchant(Enchantment.MENDING, 1, false);
 		itemStack.setItemMeta(meta);
