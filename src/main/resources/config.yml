@@ -12,6 +12,8 @@ IMaxArrows: 16
 IRadius: 4
 #The average number of arrows per block in arrow rain
 DArrowDensity: 1.5
+#Number of ticks to get full arrow rewards
+DCooldown: 5
 
 #The amount of damage each arrow should deal on hit
 DDamage: 10

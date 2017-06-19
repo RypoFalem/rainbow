@@ -5,6 +5,7 @@ import com.winthier.custom.item.CustomItem;
 import com.winthier.custom.item.ItemDescription;
 import com.winthier.custom.item.UncraftableItem;
 import com.winthier.custom.item.UpdatableItem;
+import com.winthier.custom.util.Dirty;
 import lombok.NonNull;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -28,6 +29,8 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 	static int explodeTicks;
 	static double arrowDensity;
 	static int radius;
+	static double cooldown;
+	static final int VERSION = 1;
 
 	static final ChatColor[] rainbowColors = {ChatColor.RED, ChatColor.GOLD, ChatColor.GREEN, ChatColor.AQUA,
 			ChatColor.BLUE, ChatColor.LIGHT_PURPLE};
@@ -44,6 +47,7 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 		radius = config.getInt("IRadius");
 		arrowDensity = config.getDouble("DArrowDensity");
 		explodeTicks = config.getInt("IArrowTimer");
+		cooldown = config.getDouble("DCooldown");
 		description = new ItemDescription();
 		description.setDisplayName(rainbowizeString(config.getString("description.displayName")));
 		description.setCategory(config.getString("description.category"));
@@ -53,8 +57,12 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 
 	@Override
 	public void updateItem(ItemStack itemStack){
+		Dirty.TagWrapper itemConfig = Dirty.TagWrapper.getItemConfigOf(itemStack);
+		int version = itemConfig.getInt("version");
+		if(version == VERSION) return;
+		itemConfig.setInt("version", VERSION);
 		ItemMeta meta = itemStack.getItemMeta();
-		meta.addEnchant(Enchantment.MENDING, 1, true);
+		meta.addEnchant(Enchantment.MENDING, 1, false);
 		itemStack.setItemMeta(meta);
 		description.apply(itemStack);
 	}
@@ -97,6 +105,7 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 			event.setCancelled(true);
 			return;
 		}
+
 		player.getWorld().playSound(player.getLocation(),
 				Sound.BLOCK_NOTE_HARP, 1,
 				RainBowPlugin.random.nextFloat() + .5f);
@@ -104,7 +113,15 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 				(RainBowArrowBundleEntity.Watcher) CustomPlugin.getInstance().getEntityManager()
 				.spawnEntity(arrow.getLocation(), RainBowArrowBundleEntity.ID);
 		Arrow arrowBundle = watcher.getEntity();
-		watcher.arrows =  (int) (ammo * Math.pow(radius*2+1, 2) * arrowDensity / maxArrow);
+
+		int arrows =  (int) (ammo * Math.pow(radius*2+1, 2) * arrowDensity / maxArrow);
+		Dirty.TagWrapper itemConfig = Dirty.TagWrapper.getItemConfigOf(event.getBow());
+		double elapsedTime = (System.currentTimeMillis() - itemConfig.getLong("lastShot")) / 1000.0;
+		if(elapsedTime < cooldown){
+			arrows = (int) (arrows * Math.pow(10, elapsedTime/cooldown -1));
+		}
+		itemConfig.setLong("lastShot", System.currentTimeMillis());
+		watcher.arrows = arrows;
 		watcher.radius = radius;
 		watcher.explodeTicks = explodeTicks;
 		arrowBundle.setVelocity(arrow.getVelocity());
