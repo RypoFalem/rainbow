@@ -90,5 +90,4 @@ public class RainBowPlugin extends JavaPlugin implements Listener, CommandExecut
 		}
 		return true;
 	}
-
 }

@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -58,6 +59,8 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 	public void updateItem(ItemStack itemStack){
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.addEnchant(Enchantment.MENDING, 1, false);
+		meta.addEnchant(Enchantment.DURABILITY, 10, true);
+		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(meta);
 		description.apply(itemStack);
 	}
