@@ -64,7 +64,6 @@ public class RainBowArrowBundleEntity implements CustomEntity, TickableEntity {
 
 		class DropArrowTask extends BukkitRunnable{
 			private ArrayList<Location> spawnLocations;
-			int count = 0;
 
 			DropArrowTask(){
 				spawnLocations = new ArrayList<>();
@@ -84,12 +83,10 @@ public class RainBowArrowBundleEntity implements CustomEntity, TickableEntity {
 							.spawnEntity(loc, RainBowArrowEntity.ID).getEntity();
 					arrow.setShooter(entity.getShooter());
 					arrow.setVelocity(new Vector(0, -.5, 0));
-					count++;
 					arrows--;
 				}
 				if(arrows <= 0){
 					this.cancel();
-					Bukkit.broadcastMessage(count + " arrows");
 					return;
 				}
 			}
