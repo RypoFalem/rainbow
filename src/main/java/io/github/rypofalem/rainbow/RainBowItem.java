@@ -3,6 +3,7 @@ package io.github.rypofalem.rainbow;
 import com.winthier.custom.CustomPlugin;
 import com.winthier.custom.item.CustomItem;
 import com.winthier.custom.item.ItemDescription;
+import com.winthier.custom.item.UncraftableItem;
 import com.winthier.custom.item.UpdatableItem;
 import lombok.NonNull;
 import org.bukkit.ChatColor;
@@ -10,14 +11,16 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-public class RainBowItem implements CustomItem, UpdatableItem {
+public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 	static ItemStack template;
 	static ItemDescription description;
 	static final String ID = "rainbow:rainbow";
@@ -50,6 +53,9 @@ public class RainBowItem implements CustomItem, UpdatableItem {
 
 	@Override
 	public void updateItem(ItemStack itemStack){
+		ItemMeta meta = itemStack.getItemMeta();
+		meta.addEnchant(Enchantment.MENDING, 1, true);
+		itemStack.setItemMeta(meta);
 		description.apply(itemStack);
 	}
 
