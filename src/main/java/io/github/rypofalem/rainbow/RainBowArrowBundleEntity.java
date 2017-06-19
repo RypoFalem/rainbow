@@ -5,6 +5,7 @@ import com.winthier.custom.entity.CustomEntity;
 import com.winthier.custom.entity.EntityWatcher;
 import com.winthier.custom.entity.TickableEntity;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -63,6 +64,7 @@ public class RainBowArrowBundleEntity implements CustomEntity, TickableEntity {
 
 		class DropArrowTask extends BukkitRunnable{
 			private ArrayList<Location> spawnLocations;
+			int count = 0;
 
 			DropArrowTask(){
 				spawnLocations = new ArrayList<>();
@@ -76,15 +78,19 @@ public class RainBowArrowBundleEntity implements CustomEntity, TickableEntity {
 
 			@Override
 			public void run() {
-				if(--arrows >= 0){
+				for(int i = 0; i<2 && arrows > 0; i++){
 					Location loc = spawnLocations.get(arrows%spawnLocations.size());
-					if(!loc.getChunk().isLoaded()) return;
 					Arrow arrow = (Arrow)CustomPlugin.getInstance().getEntityManager()
 							.spawnEntity(loc, RainBowArrowEntity.ID).getEntity();
 					arrow.setShooter(entity.getShooter());
 					arrow.setVelocity(new Vector(0, -.5, 0));
-				}else{
+					count++;
+					arrows--;
+				}
+				if(arrows <= 0){
 					this.cancel();
+					Bukkit.broadcastMessage(count + " arrows");
+					return;
 				}
 			}
 		}
