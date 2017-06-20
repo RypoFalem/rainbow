@@ -116,7 +116,7 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 		Dirty.TagWrapper itemConfig = Dirty.TagWrapper.getItemConfigOf(event.getBow());
 		double elapsedTime = (System.currentTimeMillis() - itemConfig.getLong("lastShot")) / 1000.0;
 		if(elapsedTime < cooldown){
-			arrows = (int) (arrows * Math.pow(10, elapsedTime/cooldown -1));
+			arrows = (int) (arrows * Math.pow(300, elapsedTime/cooldown -1));
 		}
 		itemConfig.setLong("lastShot", System.currentTimeMillis());
 		watcher.arrows = arrows;
