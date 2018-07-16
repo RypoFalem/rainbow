@@ -2,6 +2,7 @@ name: RainBow
 description: A bow that rains arrows
 author: RypoFalem
 version: 0.1
+api-version: 1.13
 main: io.github.rypofalem.rainbow.RainBowPlugin
 depend: [ Custom ]
 commands:

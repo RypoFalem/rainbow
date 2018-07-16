@@ -57,7 +57,7 @@ public class RainBowArrowBundleEntity implements CustomEntity, TickableEntity {
 			if(getEntity().isOnGround()) getEntity().remove();
 			if(getEntity().getTicksLived() < explodeTicks) return;
 			new DropArrowTask().runTaskTimer(RainBowPlugin.instance, 0, 1);
-			getEntity().getWorld().playSound(getEntity().getLocation(), Sound.ENTITY_LIGHTNING_THUNDER,
+			getEntity().getWorld().playSound(getEntity().getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER,
 					SoundCategory.WEATHER, 5, 1);
 			getEntity().remove();
 		}

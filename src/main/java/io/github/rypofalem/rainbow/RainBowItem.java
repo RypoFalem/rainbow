@@ -56,13 +56,14 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 	}
 
 	@Override
-	public void updateItem(ItemStack itemStack){
+	public ItemStack updateItem(ItemStack itemStack){
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.addEnchant(Enchantment.MENDING, 1, false);
 		meta.addEnchant(Enchantment.DURABILITY, 10, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES);
 		itemStack.setItemMeta(meta);
 		description.apply(itemStack);
+		return itemStack;
 	}
 
 	@Override
@@ -105,7 +106,7 @@ public class RainBowItem implements CustomItem, UpdatableItem, UncraftableItem {
 		}
 
 		player.getWorld().playSound(player.getLocation(),
-				Sound.BLOCK_NOTE_HARP, 1,
+				Sound.BLOCK_NOTE_BLOCK_HARP, 1,
 				RainBowPlugin.random.nextFloat() + .5f);
 		RainBowArrowBundleEntity.Watcher watcher =
 				(RainBowArrowBundleEntity.Watcher) CustomPlugin.getInstance().getEntityManager()
